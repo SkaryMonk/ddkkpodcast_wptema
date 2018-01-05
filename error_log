@@ -1,0 +1,1 @@
+[13-Jan-2012 13:09:49] PHP Fatal error:  Call to undefined function get_header() in /home/kaffeklu/public_html/podcast/wp-content/themes/chaostheory/info.php on line 7
