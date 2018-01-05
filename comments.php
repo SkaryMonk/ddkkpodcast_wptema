@@ -1,34 +1,28 @@
 <?php
 /**
- * @package WordPress
- * @subpackage ChaosTheory
+ * @package ChaosTheory
  */
+
+if ( post_password_required() )
+	return;
 ?>
+
 <div class="comments">
+	<?php
+	if ( have_comments() ) :
 
-<?php
-	if ( 'comments.php' == basename($_SERVER['SCRIPT_FILENAME']) )
-		die ( 'Please do not load this page directly. Thanks!' );
-	if ( post_password_required() ) :
-?>
-	<div class="nopassword"><?php _e( 'This post is password protected. Enter the password to proceed.', 'chaostheory' ); ?></div>
-	</div>
-<?php
-		return;
-	endif;
-?>
+	// Numbers of comments and pings.
+	$comment_count = count( $comments_by_type['comment'] );
+	$pings_count   = count( $comments_by_type['pings'] );
 
-<?php if ( have_comments() ) : ?>
+	if ( $comment_count ) : ?>
 
-<?php /* NUMBERS OF PINGS AND COMMENTS */
-$ping_count = $comment_count = 0;
-foreach ( $comments as $comment )
-	get_comment_type() == "comment" ? ++$comment_count : ++$ping_count;
-?>
+	<h3 class="comment-header" id="numcomments"><?php
+		printf( _n( 'One Comment', '%1$s Comments', $comment_count, 'chaostheory' ),
+			number_format_i18n( $comment_count )
+		);
+	?></h3>
 
-<?php if ( $comment_count ) : ?>
-
-	<h3 class="comment-header" id="numcomments"><?php printf( __($comment_count > 1 ? '%d Comments' : 'One Comment', 'chaostheory' ), $comment_count); ?></h3>
 	<ol id="comments" class="commentlist">
 		<?php wp_list_comments(array( 'callback'=>'chaostheory_comment', 'avatar_size'=>16, 'type'=>'comment' ) ); ?>
 	</ol>
@@ -39,25 +33,27 @@ foreach ( $comments as $comment )
 	</div>
 	<br />
 
-<?php endif; /* if ( $comment_count ) */ ?>
+	<?php endif; /* if ( $comment_count ) */ ?>
 
-<?php if ( $ping_count ) : ?>
+	<?php if ( $pings_count && get_comment_pages_count( $comments_by_type['pings'] ) >= get_query_var( 'cpage' ) ) : ?>
 
-	<h3 class="comment-header" id="numpingbacks"><?php printf( __($ping_count > 1 ? '%d Trackbacks/Pingbacks' : 'One Trackback/Pingback', 'chaostheory' ), $ping_count); ?></h3>
+	<h3 class="comment-header" id="numpingbacks"><?php
+		printf( _n( 'One Trackback/Pingback', '%1$s Trackbacks/Pingbacks', $pings_count, 'chaostheory' ),
+			number_format_i18n( $pings_count )
+		);
+	?></h3>
 	<ol id="pingbacks" class="commentlist">
 		<?php wp_list_comments(array( 'callback'=>'chaostheory_ping', 'type'=>'pings' ) ); ?>
 	</ol>
 
-<?php endif /* if ( $ping_count ) */ ?>
+	<?php endif /* if ( $pings_count ) */ ?>
 
-<?php endif /* if ( $comments ) */ ?>
+	<?php endif /* if ( have_comments() ) */ ?>
 
-<!-- formcontainer around #commentform -->
-
-<?php if ( comments_open() ) : ?>
+	<?php if ( ! comments_open() && get_comments_number() ) : ?>
+	<p class="no-comments"><?php _e( 'Comments are closed.' , 'chaostheory' ); ?></p>
+	<?php endif; ?>
 
 	<?php comment_form(); ?>
-
-<?php endif /* if ( 'open' == $post->comment_status ) */ ?>
 
 </div>

@@ -1,7 +1,6 @@
 <?php
 /**
- * @package WordPress
- * @subpackage ChaosTheory
+ * @package ChaosTheory
  */
 ?>
 <?php get_header(); ?>

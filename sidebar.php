@@ -1,7 +1,6 @@
 <?php
 /**
- * @package WordPress
- * @subpackage ChaosTheory
+ * @package ChaosTheory
  */
 ?>
 <div id="sidebar" class="clearfix">
@@ -40,7 +39,7 @@
 					<form id="searchform" method="get" action="<?php echo home_url(); ?>">
 						<div>
 							<input id="s" name="s" type="text" value="<?php the_search_query(); ?>" size="10" />
-							<input id="searchsubmit" name="searchsubmit" type="submit" value="<?php esc_attr_e( 'Find;', 'chaostheory' ); ?>" />
+							<input id="searchsubmit" name="searchsubmit" type="submit" value="<?php esc_attr_e( 'Find &raquo;', 'chaostheory' ); ?>" />
 						</div>
 					</form>
 				</li>

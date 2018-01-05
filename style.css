@@ -694,6 +694,15 @@ p.access {
 	height: auto;
 }
 
+#ie8 .hentry img.size-auto,
+#ie8 .hentry img.size-full,
+#ie8 .hentry img.size-large,
+#ie8 .hentry img.size-medium,
+#ie8 .hentry .attachment img,
+#ie8 .post-format-content img {
+	width: auto; /* Necessary for IE8 to resize images correctly. */
+}
+
 
 /* =WP.com fixes
 -------------------------------------------------------------- */
@@ -728,3 +737,35 @@ p.access {
 	display: block;
 }
 /* End hide from IE-mac */
+
+/* =Jetpack: Infinite Scroll
+-------------------------------------------------------------- */
+.infinite-scroll .infinite-wrap {
+	border-top: none;
+	padding: 0;
+}
+.infinite-scroll #infinite-handle {
+	margin: 50px 0 20px;
+}
+.infinite-scroll #infinite-handle span {
+	line-height: 30px;
+}
+/**
+* Elements to hide:
+* (footer widgets, post navigation, regular footer)
+*/
+.infinite-scroll #nav-below,
+.infinite-scroll #nav-above,
+.infinite-scroll.neverending #colophon {
+	display: none;
+}
+/* Adjust the footer container and handle for the dark color scheme */
+.infinite-scroll .infinite-loader {
+	color: #fff;
+}
+/**
+* Hooks to infinity-end body class to restore footer
+*/
+.infinity-end.neverending #colophon {
+	display: block;
+}

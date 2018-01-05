@@ -1,37 +1,34 @@
 <?php
 /**
- * @package WordPress
- * @subpackage ChaosTheory
+ * @package ChaosTheory
  */
 ?>
 <?php get_header(); ?>
 
-	<div id="container" class="clearfix">
+	<div id="container">
 		<div id="content" class="hfeed">
 
 			<?php while ( have_posts() ) : the_post(); ?>
 
 			<div id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 				<div class="entry-meta">
-					<h2 class="entry-title"><a href="<?php the_permalink(); ?>" title="<?php echo esc_attr( sprintf( __( 'Permanent link to %s', 'chaostheory' ), the_title_attribute( 'echo=0' ) ) ); ?>" rel="bookmark"><?php the_title(); ?></a></h2>
+					<h2 class="entry-title"><a href="<?php the_permalink(); ?>" rel="bookmark"><?php the_title(); ?></a></h2>
 					<ul>
-						<li class="entry-date"><a href="<?php the_permalink(); ?>"><?php printf( __( '%1$s &#8211; %2$s', 'chaostheory' ), the_date( '', '', '', false ), get_the_time() ); ?></a></li>
+						<li class="entry-date"><a href="<?php the_permalink(); ?>"><?php printf( __( '%1$s &#8211; %2$s', 'chaostheory' ), get_the_date(), get_the_time() ); ?></a></li>
 						<li class="entry-category"><?php the_attached_image(); ?></li>
 						<li class="entry-category"><?php printf( __( 'Posted in %s', 'chaostheory' ), get_the_category_list( ', ' ) ); ?></li>
-						<?php the_tags( '<li class="entry-tags">'. __( 'Tagged', 'chaostheory' ) . ' ', ", ", "</li>"); ?>
-<?php edit_post_link( __( 'Edit', 'chaostheory' ), '<li class="entry-editlink">', '</li>'); ?>
+						<?php the_tags( '<li class="entry-tags">'. __( 'Tagged', 'chaostheory' ) . ' ', ', ', '</li>' ); ?>
+						<?php edit_post_link( __( 'Edit', 'chaostheory' ), '<li class="entry-editlink">', '</li>' ); ?>
 						<li class="entry-commentlink"><?php comments_popup_link( __( 'Leave a Comment', 'chaostheory' ), __( 'Comments (1)', 'chaostheory' ), __( 'Comments (%)', 'chaostheory' ) ); ?></li>
-					</ul> 
-					
-				<div id="social"><?php echo wp_socializer(socialbts, 'type=16px&output=image&services=facebook,twitter,rss'); ?></div>
-					</div>
+					</ul>
+				</div>
 				<div class="entry-content">
 					<?php the_content( '<span class="more-link">' . __( 'Read More &raquo;', 'chaostheory' ) . '</span>' ); ?>
 					<?php wp_link_pages( array( 'before' => '<div class="page-link">' . __( 'Pages: ', 'chaostheory' ), 'after' => '</div>' ) ); ?>
 				</div>
 			</div><!-- .post -->
 
-			<?php if ( comments_open() ) comments_template(); ?>
+			<?php if ( comments_open() ) comments_template( '', true ); ?>
 
 			<?php endwhile ?>
 

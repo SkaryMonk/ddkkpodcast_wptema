@@ -2,8 +2,7 @@
 /**
  * Template Name: Archives Page
  *
- * @package WordPress
- * @subpackage ChaosTheory
+ * @package ChaosTheory
  */
 ?>
 <?php get_header(); ?>
@@ -35,7 +34,7 @@
 					</div>
 				</div><!-- .post -->
 
-				<?php if ( comments_open() ) comments_template(); ?>
+				<?php if ( comments_open() ) comments_template( '', true ); ?>
 
 			<?php endwhile; // end of the loop. ?>
 		</div><!-- #content .hfeed -->
